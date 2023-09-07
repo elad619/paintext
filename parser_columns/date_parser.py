@@ -14,10 +14,3 @@ class DateParser(BaseParser):
         except:
             print(f"No date in document! filling with {MISSING_VALUE_STRING}!")
             return MISSING_VALUE_STRING
-
-
-if __name__ == "__main__":
-    parser = DateParser()
-    df = pd.read_csv('../pain_data.csv')
-    df['date_of_operation'] = df['Content'].apply(parser.parse_document)
-    print(df)
