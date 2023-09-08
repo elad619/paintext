@@ -29,7 +29,8 @@ class OperationDateParser(BaseParser):
                 all_dates_in_documents_as_datetime = [self._convert_string_to_date(date_in_document) for
                                                       date_in_document in
                                                       all_dates_in_documents]
-                return str(max(all_dates_in_documents_as_datetime).date())
+                most_recent_date_in_document = max(all_dates_in_documents_as_datetime).date()
+                return str(most_recent_date_in_document)
             except:
                 return MISSING_VALUE_STRING
 
