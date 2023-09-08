@@ -1,4 +1,1 @@
-
-DATE_STRING_FORMAT = r'\d*[\./]\d*[\./]\d*'
-
 MISSING_VALUE_STRING = "MISSING_VALUE"

@@ -1,7 +1,9 @@
 from parser_columns.base_parser import BaseParser
-from constants import DATE_STRING_FORMAT, MISSING_VALUE_STRING
+from constants import MISSING_VALUE_STRING
 import pandas as pd
 import re
+
+DATE_STRING_FORMAT = r'\d+[\./]\d+[\./]\d+'
 
 class DateParser(BaseParser):
     def __init__(self):
@@ -14,3 +16,5 @@ class DateParser(BaseParser):
         except:
             print(f"No date in document! filling with {MISSING_VALUE_STRING}!")
             return MISSING_VALUE_STRING
+
+
