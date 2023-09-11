@@ -1,0 +1,5 @@
+def add_column_under_blur(df):
+  under_blur_column="תחת טשטוש"
+  blur="טשטוש"
+  df[under_blur_column]=df.apply(lambda row: True if blur in row['Content'] else False, axis=1)
+  return df
