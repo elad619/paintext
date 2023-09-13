@@ -11,7 +11,7 @@ class DoesContainMarcaineMedicineParser(BaseParser):
 
     def parse_document(self, document_content: str) -> str:
         try:
-            similar_words_in_text = find_similar_words(text, word_to_match)
+            similar_words_in_text = find_similar_words(document_content, self.marcaine_string)
             if len(similar_words_in_text) > 0:
                 return POSITIVE_VALUE_STRING
             else:

@@ -1,5 +1,4 @@
-from fuzzywuzzy import process
-from fuzzywuzzy import fuzz
+from fuzzywuzzy import process, fuzz
 from typing import List
 
 def find_similar_words(text: str, word: str) -> List[str]:
