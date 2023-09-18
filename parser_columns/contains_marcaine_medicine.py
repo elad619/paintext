@@ -7,11 +7,10 @@ MARCAINE = "מרקאין"
 class DoesContainMarcaineMedicineParser(BaseParser):
     def __init__(self) -> None:
         super().__init__()
-        self.marcaine_string = MARCAINE
 
     def parse_document(self, document_content: str) -> str:
         try:
-            similar_words_in_text = find_similar_words(document_content, self.marcaine_string)
+            similar_words_in_text = find_similar_words(document_content, MARCAINE)
             if len(similar_words_in_text) > 0:
                 return POSITIVE_VALUE
             else:
