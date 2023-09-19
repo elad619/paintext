@@ -17,7 +17,7 @@ class OperationDateParser(BaseParser):
         dates_in_documents: List[str] = re.findall(self.date_string_format, document_content)
         for date in dates_in_documents:
             try:
-                self.dates.append(date_parser(date).date())
+                self.dates.append(date_parser(date.replace(".", "/")).date())
             except ParserError as e:
                 print(e)
         return str(max(dates_in_documents)) if dates_in_documents else MISSING_VALUE
