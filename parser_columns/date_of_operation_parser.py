@@ -1,7 +1,7 @@
 from typing import List
 import datetime as dt
 from parser_columns.base_parser import BaseParser
-from constants import MISSING_VALUE_STRING
+from constants import MISSING_VALUE
 import re
 from dateutil.parser import parse as date_parser, ParserError
 
@@ -15,10 +15,9 @@ class OperationDateParser(BaseParser):
 
     def parse_document(self, document_content: str) -> str:
         dates_in_documents: List[str] = re.findall(self.date_string_format, document_content)
-
         for date in dates_in_documents:
             try:
                 self.dates.append(date_parser(date).date())
             except ParserError as e:
                 print(e)
-        return str(max(dates_in_documents)) if dates_in_documents else MISSING_VALUE_STRING
+        return str(max(dates_in_documents)) if dates_in_documents else MISSING_VALUE
