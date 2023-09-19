@@ -18,15 +18,15 @@ class NeedleWidthParser(BaseParser):
         match_with_G_before_number = re.search(self.needle_width_regex_with_G_before_number, document_content)
         match_with_G_after_number = re.search(self.needle_width_regex_with_G_after_nunber, document_content)
         if match_with_G_before_number:
-            match_group = match_with_G_before_number.group()
+            match_group: str = match_with_G_before_number.group()
             match_without_spaces = match_group.replace(" ", "")
             needle_width = match_without_spaces[0] + match_without_spaces[-2:]
             return needle_width
 
         elif match_with_G_after_number:
-            match_group = match_with_G_after_number.group()
+            match_group: str = match_with_G_after_number.group()
             match_without_spaces = match_group.replace(" ", "")
-            needle_width = match_without_spaces[0] + match_without_spaces[-2:]
+            needle_width = match_without_spaces[-1] + match_without_spaces[:-1]
             return needle_width
         else:
             print(f"No needle width in document! filling with {MISSING_VALUE_STRING}!")
