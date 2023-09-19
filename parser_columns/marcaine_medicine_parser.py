@@ -1,5 +1,3 @@
-import pandas as pd
-
 from constants import POSITIVE_VALUE, NEGATIVE_VALUE, MISSING_VALUE
 from parser_columns.base_parser import BaseParser
 from utils.word_searcher import WordSearcher
