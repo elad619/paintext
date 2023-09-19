@@ -1,5 +1,5 @@
 from parser_columns.base_parser import BaseParser
-from constants import MISSING_VALUE_STRING
+from constants import MISSING_VALUE
 import pandas as pd
 from datetime import datetime
 import re
@@ -32,6 +32,6 @@ class OperationDateParser(BaseParser):
                 most_recent_date_in_document = max(all_dates_in_documents_as_datetime).date()
                 return str(most_recent_date_in_document)
             except:
-                return MISSING_VALUE_STRING
+                return MISSING_VALUE
 
-        return MISSING_VALUE_STRING
+        return MISSING_VALUE
