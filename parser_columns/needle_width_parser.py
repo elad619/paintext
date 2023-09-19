@@ -1,6 +1,5 @@
 from parser_columns.base_parser import BaseParser
-from constants import NEEDLE_WIDTH_SYMBOL, NEEDLE_WIDTH_OPTIONS, MISSING_VALUE_STRING
-import pandas as pd
+from constants import NEEDLE_WIDTH_SYMBOL, NEEDLE_WIDTH_OPTIONS, MISSING_VALUE
 import re
 
 class NeedleWidthParser(BaseParser):
@@ -29,5 +28,5 @@ class NeedleWidthParser(BaseParser):
             needle_width = match_without_spaces[-1] + match_without_spaces[:-1]
             return needle_width
         else:
-            print(f"No needle width in document! filling with {MISSING_VALUE_STRING}!")
-            return MISSING_VALUE_STRING
+            print(f"No needle width in document! filling with {MISSING_VALUE}!")
+            return MISSING_VALUE
