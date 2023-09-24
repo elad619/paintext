@@ -12,7 +12,8 @@ if __name__ == '__main__':
 
     for index, row in df.iterrows():
         document_content = row['Content']
-        res = anesthetics.parse_document(document_content)
+        # res = anesthetics.parse_document(document_content)
+        res = contrast.parse_document(document_content)
         # print(res)
 
 # from parser_columns.blood_thinners import BloodThinners

@@ -2,11 +2,9 @@ from constants import POSITIVE_VALUE, NEGATIVE_VALUE, MISSING_VALUE
 from parser_columns.base_parser import BaseParser
 from utils.word_searcher import WordSearcher
 
-NO_CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS = ["אין רגישות לחומרי הרדמה"]
+NO_CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS = ["אין רגישות לחומרי הרדמה", "אין רגישות לחומר ניגוד וחומרי הרדמה", "אין רגישות לחומר ניגוד או לחומרי הרדמה", "לא רגישה ליוד או חמרי הרדמה", "אין רגישות לחומר ניגוד או לחומרי הרדמה", "אין רגישות לחומר ניגוד ואין רגישות חומרי הרדמה", "אין רגישות לחמר ניגוד וחומרי הרדמה", "ואין רגישות חומרי הרדמה", "אין רגישות ליוד ולחומרי הרדמה"]
+CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS = ["וכי יש רגישות לחומר ניגוד וחומרי הרדמה"]
 
-
-# TODO - consider a list of NO_CONTRAST_MATERIALS_SENSITIVITY and insead of initiating WordSearcher at init method,
-#   create a new one at each item in the list or modify word_searcher to receive multiple words
 
 class ContrastMaterialsSensitivity(BaseParser):
     def __init__(self) -> None:
@@ -14,10 +12,12 @@ class ContrastMaterialsSensitivity(BaseParser):
 
     def parse_document(self, document_content: str) -> str:
         try:
-            for implying_sentence in NO_CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS:
-                if implying_sentence in document_content:
+            for no_implying_sentence in NO_CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS:
+                if no_implying_sentence in document_content:
                     return NEGATIVE_VALUE  # meaning there is no contrast materials sensitivity
-                else:
+            for implying_sentence in CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS:
+                if implying_sentence in document_content:
                     return POSITIVE_VALUE
+            return MISSING_VALUE
         except:
             return MISSING_VALUE
