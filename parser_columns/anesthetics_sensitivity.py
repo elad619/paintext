@@ -1,4 +1,4 @@
-from constants import POSITIVE_VALUE, NEGATIVE_VALUE, MISSING_VALUE
+from const.constants import POSITIVE_VALUE, NEGATIVE_VALUE, MISSING_VALUE
 from parser_columns.base_parser import BaseParser
 
 NO_ANESTHETICS_SENSITIVITY_IMPLIERS = ["אין רגישות לחומר ניגוד", "אין רגישות לחומרי הרדמה מקומית או לחומר ניגוד",
@@ -8,6 +8,9 @@ ANESTHETICS_SENSITIVITY_IMPLIERS = ["יש רגישות לחומר ניגוד"]
 
 
 class AnestheticsSensitivity(BaseParser):
+    """
+        to change after searching sentences will be added to text_searcher
+    """
     def __init__(self) -> None:
         super().__init__()
 

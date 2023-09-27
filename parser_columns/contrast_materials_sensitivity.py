@@ -1,12 +1,13 @@
-from constants import POSITIVE_VALUE, NEGATIVE_VALUE, MISSING_VALUE
+from const.constants import POSITIVE_VALUE, NEGATIVE_VALUE, MISSING_VALUE
 from parser_columns.base_parser import BaseParser
-from utils.word_searcher import WordSearcher
-
-NO_CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS = ["אין רגישות לחומרי הרדמה", "אין רגישות לחומר ניגוד וחומרי הרדמה", "אין רגישות לחומר ניגוד או לחומרי הרדמה", "לא רגישה ליוד או חמרי הרדמה", "אין רגישות לחומר ניגוד או לחומרי הרדמה", "אין רגישות לחומר ניגוד ואין רגישות חומרי הרדמה", "אין רגישות לחמר ניגוד וחומרי הרדמה", "ואין רגישות חומרי הרדמה", "אין רגישות ליוד ולחומרי הרדמה"]
 CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS = ["וכי יש רגישות לחומר ניגוד וחומרי הרדמה"]
+NO_CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS = ["אין רגישות לחומרי הרדמה", "אין רגישות לחומר ניגוד וחומרי הרדמה", "אין רגישות לחומר ניגוד או לחומרי הרדמה", "לא רגישה ליוד או חמרי הרדמה", "אין רגישות לחומר ניגוד או לחומרי הרדמה", "אין רגישות לחומר ניגוד ואין רגישות חומרי הרדמה", "אין רגישות לחמר ניגוד וחומרי הרדמה", "ואין רגישות חומרי הרדמה", "אין רגישות ליוד ולחומרי הרדמה"]
 
 
 class ContrastMaterialsSensitivity(BaseParser):
+    """
+    to change after searching sentences will be added to text_searcher
+    """
     def __init__(self) -> None:
         super().__init__()
 
