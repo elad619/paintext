@@ -14,7 +14,7 @@ class ContrastMaterialsSensitivity(BaseParser):
         try:
             for no_implying_sentence in NO_CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS:
                 if no_implying_sentence in document_content:
-                    return NEGATIVE_VALUE  # meaning there is no contrast materials sensitivity
+                    return NEGATIVE_VALUE
             for implying_sentence in CONTRAST_MATERIALS_SENSITIVITY_IMPLIERS:
                 if implying_sentence in document_content:
                     return POSITIVE_VALUE
