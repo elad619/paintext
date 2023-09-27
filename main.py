@@ -1,29 +1,23 @@
-from pathlib import Path
-from multiprocessing import Pool
+import pandas as pd
 
 from const.constants import PATH
-from utils.text_searcher import TextSearcher
 
 
-def get_date_from_file(f):
-    with open(f, "r") as file:
-        file_content = file.read()
-    searcher = TextSearcher(file_content)
+def run_state_machine(document_content: str):
+    return None
 
 
-def save_file_to_db(data):
+def save_file_to_db(parsed_document_results: str):
     pass
 
 
-def handle_file(f):
-    data = get_date_from_file(f)
-    save_file_to_db(data)
-
-
 def main():
-    files = Path(PATH).iterdir()
-    with Pool(processes=10) as pool:
-        pool.map(handle_file, files)
+    df = pd.read_csv(PATH)
+
+    for _, row in df.iterrows():
+        document_content = row['Content']
+        result = run_state_machine(document_content)
+        save_file_to_db(result)
 
 
 if __name__ == '__main__':
