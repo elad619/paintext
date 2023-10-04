@@ -61,7 +61,7 @@ class TextSearcher:
             FoundWord: The closest matching word if found; otherwise, a null value.
         """
         closest_word = self._get_found_words(word_to_search).get_max_word()
-        return closest_word if closest_word.ratio > threshold else FoundWord(MISSING_VALUE, MISSING_VALUE, 0)
+        return closest_word if closest_word.ratio > threshold else FoundWord(word_to_search, MISSING_VALUE, 0)
 
     def get_words_if_found(self, words: List[str], threshold: float = 0.6) -> FoundWords:
         """
