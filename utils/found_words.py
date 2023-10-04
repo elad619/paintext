@@ -23,7 +23,7 @@ class FoundWords:
         return max(self.words, key=lambda x: x.ratio)
 
     @property
-    def as_json(self) -> str:
+    def json(self) -> str:
         """
         Returns a JSON string representation of the list of FoundWord objects.
 
