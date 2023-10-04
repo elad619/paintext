@@ -4,7 +4,7 @@ from const.constants import PATH
 
 
 def run_state_machine(document_content: str):
-    return None
+    pass
 
 
 def save_file_to_db(parsed_document_results: str):
