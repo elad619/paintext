@@ -24,13 +24,3 @@ class FoundWord:
             bool: True if this instance represents a null value; otherwise, False.
         """
         return bool(self.ratio)
-
-    @property
-    def as_dict(self) -> dict:
-        """
-        Gets a dictionary representation of this instance.
-
-        Returns:
-            dict: A dictionary representation of this instance.
-        """
-        return dict(ratio=self.ratio, original_word=self.original_word, found_word=self.found_word)

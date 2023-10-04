@@ -29,7 +29,7 @@ class FoundWords:
 
         :return: A JSON string representation of the list of FoundWord objects.
         """
-        return json.dumps([word.as_dict for word in self.words])
+        return json.dumps([word.__dict__ for word in self.words])
 
     @property
     def without_null(self) -> "FoundWords":
