@@ -36,7 +36,7 @@ class TextSearcher:
             for word in self._text.split()]
         return FoundWords(words=words)
 
-    def is_word_in_documentation(self, word_to_search: str, threshold: float = 0.6) -> bool:
+    def is_word_in_text(self, word_to_search: str, threshold: float = 0.6) -> bool:
         """
         Determines whether the specified word is present in the documentation.
 
