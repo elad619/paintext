@@ -4,3 +4,5 @@ NEGATIVE_VALUE = "לא"
 
 NEEDLE_WIDTH_SYMBOL = "G"
 NEEDLE_WIDTH_OPTIONS = ["12", "14", "18", "20", "22", "23"]
+PATH = ""
+MARCAINE = "מרקאין"
