@@ -1,71 +1,93 @@
 import difflib
-import json
 from typing import List, Iterable
 
 from const.constants import MISSING_VALUE
-
-
-class FoundWord:
-    def __init__(self, original_word: str, found_word: str, ratio: float):
-        self.ratio = ratio
-        self.original_word = original_word
-        self.found_word = found_word
-
-    @property
-    def is_null(self) -> bool:
-        return self.ratio == 0
-
-    @property
-    def as_dict(self) -> dict:
-        return {"ratio": self.ratio, "original_word": self.original_word, "found_word": self.found_word}
-
-
-class FoundWords:
-    def __init__(self, words: List[FoundWord]):
-        self.words = words
-
-    def get_max_word(self) -> FoundWord:
-        return max(self.words, key=lambda x: x.ratio)
-
-    @property
-    def as_json(self) -> str:
-        return json.dumps([word.as_dict for word in self.words])
-
-    @property
-    def without_null(self) -> "FoundWords":
-        return FoundWords([word for word in self.words if not word.is_null])
-
-    @property
-    def original_values(self) -> List[str]:
-        return [word.original_word for word in self.words]
+from utils.found_word import FoundWord
+from utils.found_words import FoundWords
 
 
 class TextSearcher:
+    """
+    A class that searches for words and sentences in a given text.
+    """
 
     def __init__(self, text: str):
-        self.text = text
+        """
+        Initializes a new instance of the TextSearcher class.
+
+        Args:
+            text (str): The text to search.
+        """
+        self._text = text
 
     def _get_found_words(self, word_to_search: str) -> FoundWords:
+        """
+        Gets a list of words that match the specified word.
+
+        Args:
+            word_to_search (str): The word to search for.
+
+        Returns:
+            FoundWords: A list of words that match the specified word.
+        """
         words = [
             FoundWord(word_to_search, word, 1 if word == word_to_search else difflib.SequenceMatcher(a=word,
                                                                                                      b=word_to_search).ratio())
-            for word in self.text.split()]
+            for word in self._text.split()]
         return FoundWords(words=words)
 
     def is_word_in_documentation(self, word_to_search: str, threshold: float = 0.6) -> bool:
+        """
+        Determines whether the specified word is present in the documentation.
+
+        Args:
+            word_to_search (str): The word to search for.
+            threshold (float): The minimum similarity ratio required to consider a match. Defaults to 0.6.
+
+        Returns:
+            bool: True if the specified word is present in the documentation; otherwise, False.
+        """
         return self._get_found_words(word_to_search).get_max_word().ratio > threshold
 
     def get_word_if_found(self, word_to_search: str, threshold: float = 0.6) -> FoundWord:
+        """
+        Gets the closest matching word if found; otherwise, returns a null value.
+
+        Args:
+            word_to_search (str): The word to search for.
+            threshold (float): The minimum similarity ratio required to consider a match. Defaults to 0.6.
+
+        Returns:
+            FoundWord: The closest matching word if found; otherwise, a null value.
+        """
         closest_word = self._get_found_words(word_to_search).get_max_word()
         return closest_word if closest_word.ratio > threshold else FoundWord(MISSING_VALUE, MISSING_VALUE, 0)
 
     def get_words_if_found(self, words: List[str], threshold: float = 0.6) -> FoundWords:
-        closest_words: List[FoundWord] = [self.get_word_if_found(word, threshold) for word in words]
-        return FoundWords([word for word in closest_words if not word.is_null]).without_null
+        """
+        Gets a list of words that match any of the specified words.
+
+        Args:
+            words (List[str]): The words to search for.
+            threshold (float): The minimum similarity ratio required to consider a match. Defaults to 0.6.
+
+        Returns:
+            FoundWords: A list of words that match any of the specified words.
+        """
+        closest_words = [self.get_word_if_found(word, threshold) for word in words]
+        return FoundWords([word for word in closest_words if word]).without_null
 
     def is_sentence_in_text(self, sentence: str, musts: Iterable[str] = (), threshold: float = 0.6) -> bool:
-        for line in self.text.split('\n'):
-            if difflib.SequenceMatcher(None, line, sentence).ratio() > threshold and all(
-                    [must in line for must in musts]):
-                return True
-        return False
+        """
+        Determines whether the specified sentence is present in the text.
+
+        Args:
+            sentence (str): The sentence to search for.
+            musts (Iterable[str]): A collection of strings that must be present in the same line as the sentence. Defaults to an empty collection.
+            threshold (float): The minimum similarity ratio required to consider a match. Defaults to 0.6.
+
+        Returns:
+            bool: True if the specified sentence is present in the text; otherwise, False.
+        """
+        return any(difflib.SequenceMatcher(None, line.strip(), sentence.strip()).ratio() > threshold and all(
+            must in line for must in musts) for line in self._text.split('\n'))
