@@ -36,19 +36,6 @@ class TextSearcher:
             for word in self._text.split()]
         return FoundWords(words=words)
 
-    def is_word_in_text(self, word_to_search: str, threshold: float = 0.6) -> bool:
-        """
-        Determines whether the specified word is present in the documentation.
-
-        Args:
-            word_to_search (str): The word to search for.
-            threshold (float): The minimum similarity ratio required to consider a match. Defaults to 0.6.
-
-        Returns:
-            bool: True if the specified word is present in the documentation; otherwise, False.
-        """
-        return self._get_found_words(word_to_search).get_max_word().ratio > threshold
-
     def get_word_if_found(self, word_to_search: str, threshold: float = 0.6) -> FoundWord:
         """
         Gets the closest matching word if found; otherwise, returns a null value.
